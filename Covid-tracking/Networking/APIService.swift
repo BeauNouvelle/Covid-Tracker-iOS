@@ -18,6 +18,14 @@ class APIService<T: Decodable>: ObservableObject {
         case hasData(model: T)
     }
 
+    func getSummary() {
+        let url = URL(string: "https://api.covid19api.com/summary")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        apiSubscriber = perform(request: request)
+            .sink(receiveCompletion: completed(with:), receiveValue: received(model:))
+    }
+
     func getCountries() {
         let url = URL(string: "https://api.covid19api.com/countries")!
         var request = URLRequest(url: url)

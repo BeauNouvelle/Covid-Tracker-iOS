@@ -11,7 +11,7 @@ import SwiftUI
 struct DetailCountryView: View {
 
     @ObservedObject var apiService = APIService<[LiveStats]>()
-    let country: Country
+    var slug: String?
 
     var body: some View {
         VStack {
@@ -22,9 +22,11 @@ struct DetailCountryView: View {
                 Text("\(stats.last?.Cases ?? -1)")
             }
         }
-        .onAppear {
-            apiService.getStats(slug: country.slug)
-        }
+        .onChange(of: slug, perform: { value in
+            slug.map { slug in
+                apiService.getStats(slug: slug)
+            }
+        })
     }
 
 }

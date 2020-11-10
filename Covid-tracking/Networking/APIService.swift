@@ -35,7 +35,7 @@ class APIService<T: Decodable>: ObservableObject {
     }
 
     func getStats(slug: String) {
-        let url = URL(string: "https://api.covid19api.com/dayone/country/\(slug)/status/confirmed/live")!
+        let url = URL(string: "https://api.covid19api.com/dayone/country/\(slug)")!
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         apiSubscriber = perform(request: request)
